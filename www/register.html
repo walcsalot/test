@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/register.css" />
+    <title>GloveSign App - Register</title>
+    <script>
+        function handleRegistration(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get values from input fields
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Validate that all fields are filled
+            if (!firstName || !lastName || !email || !username || !password) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // Store the user data in local storage
+            localStorage.setItem('firstName', firstName);
+            localStorage.setItem('lastName', lastName);
+            localStorage.setItem('email', email);
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password); // Store password (not secure for production)
+
+            alert('Registration successful! You can now log in.');
+            window.location.href = 'index.html'; // Redirect to login page
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="handleRegistration(event)">
+        <div class="header">Create your Account</div>
+        <div class="fl-name">
+            <input id="firstName" style="width: 100px; margin-right: 5px" type="text" placeholder="First Name" required />
+            <input id="lastName" style="width: 100px" type="text" placeholder="Last Name" required />
+        </div>
+        <div style="display: flex; justify-content: center">
+            <input id="email" type="text" placeholder="Email" required />
+        </div>
+        <input id="username" type="text" placeholder="Preferred Username" required />
+        <input id="password" type="password" placeholder="Password" required />
+        
+        <div class="text">Terms of Service</div>
+        <div class="terms">
+            <input type="checkbox" name="terms" id="terms" required />
+            <label for="terms">I agree to the Terms & Conditions</label>
+        </div>
+        <button type="submit" class="btn-register">Register</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <title>GloveSign App</title>
+    <script src="js/dashboard.js" defer></script>
+    <style>
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff; /* Default button color */
+            color: white; /* Default text color */
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Rounded corners */
+            border: none; /* No border */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        .button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Dark mode styles */
+        .button.dark {
+            background-color: #444; /* Dim background color for dark mode */
+            color: #ccc; /* Light text color for contrast */
+        }
+
+        .button.dark:hover {
+            background-color: #666; /* Slightly lighter on hover in dark mode */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <img src="asset/Menu.png" alt="" onclick="window.location.href='pop-up.html';" style="cursor: pointer;" />
+            </div>
+            <div class="dash">Dashboard</div>
+        </div>
+        <hr/>
+        <div class="profile">
+            <div class="text">
+                Hello, <span id="userName">User    </span>! Welcome to the GloveSign App!
+            </div>
+        </div>
+        <div class="text-2"><b>Recent Translation History</b></div>
+        
+        <!-- Table for Recent Translations -->
+        <table id="recentTranslationsTable">
+            <thead>
+                <tr>
+                    <th>Date Delivered</th>
+                    <th>GloveSign Output</th>
+                    <th>Audio Button</th>
+                </tr>
+            </thead>
+            <tbody id="recentTranslationsBody">
+                <!-- Recent translations will be populated here -->
+            </tbody>
+        </table>
+
+        <div class="btn-show">
+            <a href="translationhistory.html" class="button" id="showMoreButton">Show more ></a>
+        </div>
+    </div>
+
+    <script>
+        // Function to apply the saved theme
+        function applyTheme() {
+            const theme = localStorage.getItem('theme');
+            const showMoreButton = document.getElementById('showMoreButton');
+
+            if (theme === 'dark') {
+                document.body.classList.add('dark'); // Add dark class to body
+                const header = document.querySelector('.header');
+                header.classList.add('dark'); // Add dark class to header
+                const hrElements = document.querySelectorAll('hr');
+                hrElements.forEach(hr => {
+                    hr.classList.add('dark'); // Add dark class to hr elements
+                });
+                showMoreButton.classList.add('dark'); // Add dark class to the button
+            } else {
+                setLightMode(); // Apply light mode if no theme is set
+            }
+        }
+
+        function setLightMode() {
+            // Set the body to light mode
+            document.body.classList.remove('dark');
+
+            // Set the header to light mode
+            const header = document.querySelector('.header');
+            header.classList.remove('dark');
+
+            // Reset hr elements to light mode
+            const hrElements = document.querySelectorAll('hr');
+            hrElements.forEach(hr => {
+                hr.classList.remove('dark');
+            });
+
+            // Remove dark class from the button
+            const showMoreButton = document.getElementById('showMoreButton');
+            showMoreButton.classList.remove('dark');
+        }
+
+        // Check if the user is logged in
+        window.onload = function() {
+            const username = localStorage.getItem('username');
+            const firstName = localStorage.getItem('firstName');
+
+            // If no username is found, redirect to registration page
+            if (!username) {
+                alert('You must be logged in to access this page.');
+                window.location.href = 'register.html'; // Change to your registration page
+                return;
+            }
+
+            // Display the user's name
+            document.getElementById('userName').textContent = firstName;
+
+            // Load recent translations for the logged-in user
+            loadRecentTranslations();
+
+            // Apply the saved theme
+            applyTheme();
+        };
+
+        function loadRecentTranslations() {
+            const username = localStorage.getItem('username'); // Get the username from local storage
+            const key = `translationHistory_${username}`; // Create a unique key for the user
+            const recentTranslations = JSON.parse(localStorage.getItem(key)) || [];
+            const tableBody = document.getElementById('recentTranslationsBody');
+            tableBody.innerHTML = ''; // Clear existing content
+
+            // Check if there are any translations to show
+            if (recentTranslations.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="3">No recent translations found.</td>`;
+                tableBody.appendChild(row);
+                return;
+            }
+
+            // Limit to the last 4 entries
+            const entriesToShow = recentTranslations.slice(-4);
+            const isDarkTheme = localStorage.getItem('theme') === 'dark'; // Check if dark theme is active
+
+            entriesToShow.forEach(entry => {
+                const row = document.createElement('tr');
+                const audioIcon = isDarkTheme ? 'asset/iconspeakerwhite.png' : 'asset/🦆 icon _speaker one_.png'; // Set icon based on theme
+                row.innerHTML = `
+                    <td>${entry.date}</td>
+                    <td>${entry.output}</td>
+                    <td>
+                        <img class="speaker" src="${audioIcon}" alt="" onclick="playSpeech('${entry.output}')" />
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function playSpeech(statement) {
+            const utterance = new SpeechSynthesisUtterance(statement);
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>

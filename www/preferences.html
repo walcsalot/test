@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/preferences.css" />
+    <title>GloveSign App</title>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <img src="asset/Group 13.png" alt="" onclick="window.location.href='pop-up.html';" style="cursor: pointer;" />
+        </div>
+        <div class="dash">Preferences</div>
+    </div>
+    <hr />
+    <div class="theme-text">Theme</div>
+    <hr />
+    <div class="dim-text" onclick="toggleDarkMode()">Dim</div>
+    <div class="glove-text">GloveSign Setting</div>
+    <div class="change-text">Change Voice</div>
+    <div class="custom-select" style="width: 200px">
+        <select>
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
+    </div>
+    <div class="text">Voice Pitch</div>
+    <div class="check-pitch">
+        <div class="check-g">
+            <input type="checkbox" />
+            <div>Low</div>
+        </div>
+        <div class="check-g">
+            <input type="checkbox" />
+            <div>Default</div>
+        </div>
+        <div class="check-g">
+            <input type="checkbox" />
+            <div>High</div>
+        </div>
+    </div>
+    <div class="text">Voice Tuner</div>
+    <div class="check-tuner">
+        <div class="check-g">
+            <input type="checkbox" />
+            <div>Slow</div>
+        </div>
+        <div class="check-g">
+            <input type="checkbox" />
+            <div>Default</div>
+        </div>
+        <div class="check-g">
+            <input type="checkbox" />
+            <div>Fast</div>
+        </div>
+    </div>
+
+    <script>
+      // Function to apply the saved theme
+      function applyTheme() {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'dark') {
+              document.body.classList.add('dark'); // Add dark class to body
+              const header = document.querySelector('.header');
+              header.classList.add('dark'); // Add dark class to header
+              const hrElements = document.querySelectorAll('hr');
+              hrElements.forEach(hr => {
+                  hr.classList.add('dark'); // Add dark class to hr elements
+              });
+              const dimText = document.querySelector('.dim-text');
+              dimText.classList.add('dark'); // Add dark class to dim text
+              dimText.textContent = 'Light'; // Set text to "Light"
+          } else {
+              setLightMode(); // Apply light mode if no theme is set
+          }
+      }
+  
+      function toggleDarkMode() {
+          // Toggle the 'dark' class on the body
+          document.body.classList.toggle('dark');
+  
+          // Toggle the 'dark' class on header
+          const header = document.querySelector('.header');
+          header.classList.toggle('dark');
+  
+          // Toggle the 'dark' class on hr elements
+          const hrElements = document.querySelectorAll('hr');
+          hrElements.forEach(hr => {
+              hr.classList.toggle('dark');
+          });
+  
+          // Change the text of the dim option based on the current mode
+          const dimText = document.querySelector('.dim-text');
+          dimText.classList.toggle('dark'); // Add or remove the dark class
+  
+          if (document.body.classList.contains('dark')) {
+              dimText.textContent = 'Light'; // Change to "Light" when in dark mode
+              localStorage.setItem('theme', 'dark'); // Save dark theme preference
+          } else {
+              dimText.textContent = 'Dim'; // Change back to "Dim" when in light mode
+              localStorage.setItem('theme', 'light'); // Save light theme preference
+          }
+      }
+  
+      function setLightMode() {
+          // Set the body to light mode
+          document.body.classList.remove('dark');
+  
+          // Set the header to light mode
+          const header = document.querySelector('.header');
+          header.classList.remove('dark');
+  
+          // Reset hr elements to light mode
+          const hrElements = document.querySelectorAll('hr');
+          hrElements.forEach(hr => {
+              hr.classList.remove('dark');
+          });
+  
+          // Change the text of the dim option back to "Dim"
+          const dimText = document.querySelector('.dim-text');
+          dimText.classList.remove('dark'); // Remove the dark class
+          dimText.textContent = 'Dim'; // Reset text to "Dim"
+      }
+  
+      // Call applyTheme when the page loads
+      window.onload = applyTheme;
+  </script>
+</body>
+</html>

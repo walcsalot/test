@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/translationhistory.css" />
+    <title>GloveSign App</title>
+    <style>
+        /* Basic styling for the input fields and button */
+        .input-container {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            margin-right: 10px;
+            padding: 5px;
+        }
+        button {
+            padding: 5px 10px;
+        }
+
+        /* Light mode styles */
+        body {
+            background-color: #ffffff; /* Light background */
+            color: #000000; /* Dark text color */
+        }
+        .header {
+            background-color: #f0f0f0; /* Light header background */
+        }
+        hr {
+            border-color: #ccc; /* Light hr color */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Light border for light theme */
+        }
+        th {
+            background-color: #f0f0f0; /* Light background for header */
+        }
+        td {
+            background-color: #ffffff; /* White background for table cells */
+        }
+
+        /* Dark mode styles */
+        body.dark {
+            background-color: #15202b; /* Dim background color */
+            color: #ffffff; /* Light text color */
+        }
+        .header.dark {
+            background-color: #1c1f23; /* Darker header background */
+        }
+        hr.dark {
+            border-color: #444; /* Darker hr color */
+        }
+        th.dark {
+            background-color: #333; /* Darker background for header */
+        }
+        td.dark {
+            background-color: #222; /* Darker background for table cells */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div><img src="asset/Group 13.png" alt="" onclick="window.location.href='pop-up.html';" style="cursor: pointer;" /></div>
+        <div class="dash">Translation History</div>
+    </div>
+    <hr />
+    
+    <!-- Input fields for new entries -->
+    <div class="input-container">
+        <input type="text" id="gloveSignOutput" placeholder="GloveSign Output" />
+        <button onclick="addRow()">Add Entry</button>
+    </div>
+
+    <table id="translationTable">
+        <tr>
+            <th>Date Delivered</th>
+            <th>GloveSign Output</th>
+            <th>Audio Button</th>
+        </tr>
+        <!-- Existing rows can be added here -->
+    </table>
+
+    <script>
+        // Function to load existing entries from local storage
+        function loadEntries() {
+            const username = localStorage.getItem('username'); // Get the username from local storage
+            const key = `translationHistory_${username}`; // Create a unique key for the user
+            const translationHistory = JSON.parse(localStorage.getItem(key)) || [];
+            translationHistory.forEach(entry => {
+                addRowToTable(entry.date, entry.output);
+            });
+        }
+
+        // Function to add a new row to the table
+        function addRow() {
+            const gloveSignOutput = document.getElementById('gloveSignOutput').value;
+
+            // Validate input
+            if (!gloveSignOutput) {
+                alert("Please fill in the GloveSign Output field.");
+                return;
+            }
+
+            const username = localStorage.getItem('username'); // Get the username from local storage
+            const key = `translationHistory_${username}`; // Create a unique key for the user
+
+            // Get the current date and time
+            const dateDelivered = new Date().toLocaleString(); // Format the date as needed
+
+            // Add the new entry to local storage
+            const translationHistory = JSON.parse(localStorage.getItem(key)) || [];
+            translationHistory.push({ date: dateDelivered, output: gloveSignOutput });
+            localStorage.setItem(key, JSON.stringify(translationHistory));
+
+            // Add the new row to the table
+            addRowToTable(dateDelivered, gloveSignOutput);
+
+            // Clear input fields
+            document.getElementById('gloveSignOutput').value = '';
+        }
+
+        // Function to add a row to the table
+        function addRowToTable(date, output) {
+            const table = document.getElementById('translationTable');
+            const newRow = table.insertRow(-1); // Insert at the end of the table
+
+            const dateCell = newRow.insertCell(0);
+            const outputCell = newRow.insertCell(1);
+            const audioCell = newRow.insertCell(2);
+
+            // Set the cell values
+            dateCell.textContent = date;
+            outputCell.textContent = output;
+
+            // Determine the current theme
+            const theme = localStorage.getItem('theme');
+            const audioButton = document.createElement('img');
+            audioButton.alt = "Play Audio";
+            audioButton.style.cursor = "pointer"; // Change cursor to pointer
+            audioButton.onclick = function() {
+                playAudio(output); // Call the playAudio function with the output
+            };
+
+            // Set the image source based on the theme
+            if (theme === 'dark') {
+                audioButton.src = "asset/iconspeakerwhite.png"; // Dark theme icon
+            } else {
+                audioButton.src = "asset/🦆 icon _speaker one_.png"; // Light theme icon
+            }
+
+            audioCell.appendChild(audioButton);
+        }
+
+        // Function to play audio based on the GloveSign output
+        function playAudio(output) {
+            // Here you would implement the logic to convert the output to audio
+            // For demonstration, we'll use the SpeechSynthesis API
+            const utterance = new SpeechSynthesisUtterance(output);
+            speechSynthesis.speak(utterance);
+        }
+
+        // Function to apply the saved theme
+        function applyTheme() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark'); // Add dark class to body
+                const header = document.querySelector('.header');
+                header.classList.add('dark'); // Add dark class to header
+                const table = document.getElementById('translationTable');
+                const ths = table.getElementsByTagName('th');
+                const tds = table.getElementsByTagName('td');
+                for (let th of ths) {
+                    th.classList.add('dark'); // Add dark class to header cells
+                }
+                for (let td of tds) {
+                    td.classList.add('dark'); // Add dark class to data cells
+                }
+            } else {
+                // Ensure light theme styles are applied
+                const header = document.querySelector('.header');
+                header.classList.remove('dark'); // Remove dark class from header
+                const table = document.getElementById('translationTable');
+                const ths = table.getElementsByTagName('th');
+                const tds = table.getElementsByTagName('td');
+                for (let th of ths) {
+                    th.classList.remove('dark'); // Remove dark class from header cells
+                }
+                for (let td of tds) {
+                    td.classList.remove('dark'); // Remove dark class from data cells
+                }
+            }
+        }
+
+        // Load existing entries and apply theme when the page loads
+        window.onload = function() {
+            loadEntries();
+            applyTheme(); // Apply the saved theme
+        };
+    </script>
+</body>
+</html>

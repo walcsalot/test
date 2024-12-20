@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <title>GloveSign App - Login</title>
+    <script>
+        // Function to handle login
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get username and password from input fields
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Check if the username and password are stored in localStorage
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+
+            // Validate credentials
+            if (username === storedUsername && password === storedPassword) {
+                // Redirect to the dashboard if login is successful
+                window.location.href = 'dashboard.html'; // Change to your dashboard
+            } else {
+                   alert('Invalid username or password. Please try again.');
+               }
+           }
+       </script>
+   </head>
+   <body>
+       <form onsubmit="handleLogin(event)">
+           <div class="header">Welcome to the GloveSign App</div>
+           <div><img width="160" src="asset/Logo.png" alt="GloveSign Logo"></div>
+           <input type="text" id="username" placeholder="Username/Email" required>
+           <input type="password" id="password" placeholder="Password" required>
+           <div class="btn">
+               <button type="submit" class="btn-register">Login</button>
+               <a class="btn-register" href="register.html">Register</a>
+           </div>
+           <a class="forgot" href="#">Forgot Password?</a>
+       </form>
+   </body>
+   </html>

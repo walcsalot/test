@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  font-family: "Montserrat", serif;
+  padding: 0;
+  margin: 0;
+}
+
+.profile {
+  display: flex;
+  margin: 10px 0 10px 10px;
+  align-items: center;
+}
+
+.profile-user {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.profile-btn {
+  margin-top: 15px;
+}
+
+.btn-edit {
+  color: black;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.text {
+  margin-left: 10px;
+  font-size: 21px;
+  font-style: italic;
+  margin: 20px;
+}
+
+a {
+  color: black; /* Change to your desired color */
+  text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+  text-decoration: underline; /* Optional: underline on hover */
+}
+
+body {
+  background-color: #ffffff; /* Light background */
+  color: #000000; /* Dark text */
+}
+
+/* Dark mode styles */
+body.dark {
+  background-color: #15202b; /* Dim background color */
+  color: white; /* Light text for contrast */
+}
+
+.text a {
+  color: inherit; /* Ensure links inherit the text color */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.text a:hover {
+  text-decoration: underline; /* Underline on hover for better UX */
+}
+

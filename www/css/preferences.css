@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap");
+
+* {
+  box-sizing: border-box; /* Ensure padding and margin are included in width/height */
+  font-family: "Montserrat", sans-serif; /* Use sans-serif for better readability */
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #ffffff; /* Light background */
+  color: #000000; /* Dark text */
+}
+
+/* Dark mode styles */
+body.dark {
+  background-color: #15202b; /* Dim background color */
+  color: white; /* Light text for contrast */
+}
+
+.header {
+  display: flex;
+  padding: 10px 20px; /* Increased padding for better spacing */
+  align-items: center;
+  background-color: #f0f0f0; /* Light header */
+  transition: background-color 0.3s; /* Smooth transition for dark mode */
+}
+
+.header.dark {
+  background-color: #1b2631; /* Darker header for dark theme */
+}
+
+.dash {
+  margin-left: 15px;
+  font-size: 21px;
+  font-style: italic;
+}
+
+.theme-text {
+  font-size: 28px;
+  margin: 20px 0 20px 10px;
+  font-weight: 500;
+}
+
+.light-text,
+.dim-text {
+  font-size: 28px;
+  margin: 20px 0;
+  font-weight: 200;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0; /* Added padding for better touch targets */
+}
+
+.dim-text {
+  background-color: #15202b; /* Dark background for dim text */
+  color: white; /* Light text color */
+}
+
+.glove-text {
+  margin: 40px 0 20px 10px;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.change-text {
+  margin: 0 0 20px 10px;
+  font-size: 18px;
+}
+
+.custom-select {
+  margin: 0 0 10px 10px;
+}
+
+select {
+  width: 170px;
+  padding: 5px; /* Added padding for better usability */
+  border-radius: 5px; /* Rounded corners for select */
+  border: 1px solid #ccc; /* Light border */
+}
+
+.check-pitch,
+.check-tuner {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5px 0 10px 10px;
+}
+
+.text {
+  margin: 0 0 10px 10px;
+  font-size: 18px;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px; /* Space between checkbox and label */
+}
+
+.check-g {
+  display: flex;
+  align-items: center;
+  flex-direction: row; /* Changed to row for better alignment */
+}
+
+/* Additional styles for dim text in dark mode */
+.dim-text.dark {
+  background-color: white; /* Change background to white in dark mode */
+  color: #000; /* Change text color to dark for contrast */
+}

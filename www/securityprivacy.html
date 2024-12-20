@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/security&privacy.css" />
+    <title>GloveSign App</title>
+    <style>
+        /* Light mode styles */
+        body {
+            background-color: #ffffff; /* Light background */
+            color: #000000; /* Dark text color */
+        }
+        .header {
+            background-color: #f0f0f0; /* Light header background */
+        }
+        hr {
+            border-color: #ccc; /* Light hr color */
+        }
+        .text, .privacy {
+            font-weight: bold;
+            margin: 20px 0;
+            color: #000000; /* Ensure text is black in light mode */
+        }
+        .btn-change a {
+            color: #007bff; /* Link color */
+            text-decoration: none;
+        }
+        .check-fullname, .check-trans {
+            margin: 10px 0;
+            color: #000000; /* Ensure checkbox labels are black in light mode */
+        }
+
+        /* Dark mode styles */
+        body.dark {
+            background-color: #15202b; /* Dark background */
+            color: #ffffff; /* Light text color */
+        }
+        .header.dark {
+            background-color: #1c1f23; /* Darker header background */
+        }
+        hr.dark {
+            border-color: #444; /* Darker hr color */
+        }
+        .btn-change a.dark {
+            color: #1e90ff; /* Lighter link color for dark theme */
+        }
+        .check-fullname.dark, .check-trans.dark {
+            color: #ffffff; /* Light text color for checkboxes in dark mode */
+        }
+        /* Dark mode text color for Security and Privacy */
+        .text.dark, .privacy.dark {
+            color: #ffffff; /* White text color for Security and Privacy in dark mode */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div><img src="asset/Group 13.png" alt="" onclick="window.location.href='pop-up.html';" style="cursor: pointer;" /></div>
+        <div class="dash">Security & Privacy</div>
+    </div>
+    <hr />
+    <div class="text">Security</div>
+    <div class="btn-change"><a href="">Change Password</a></div>
+    <div class="privacy">Privacy</div>
+    <div class="check-fullname">
+        <input type="checkbox" /><label>Hide your Full Name from Connected Profiles</label>
+    </div>
+    <div class="check-trans">
+        <input type="checkbox" /><label>Only show Recent Translation History from Connected Profiles</label>
+    </div>
+
+    <script>
+        // Function to apply the saved theme
+        function applyTheme() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark'); // Add dark class to body
+                const header = document.querySelector('.header');
+                header.classList.add('dark'); // Add dark class to header
+                const hr = document.querySelector('hr');
+                hr.classList.add('dark'); // Add dark class to hr
+                const links = document.querySelectorAll('.btn-change a');
+                links.forEach(link => link.classList.add('dark')); // Add dark class to links
+                const checkboxes = document.querySelectorAll('.check-fullname, .check-trans');
+                checkboxes.forEach(checkbox => checkbox.classList.add('dark')); // Add dark class to checkbox labels
+                // Add dark class to text elements
+                document.querySelector('.text').classList.add('dark');
+                document.querySelector('.privacy').classList.add('dark');
+            } else {
+                // Ensure light mode styles are applied
+                document.body.classList.remove('dark'); // Remove dark class from body
+                const header = document.querySelector('.header');
+                header.classList.remove('dark'); // Remove dark class from header
+                const hr = document.querySelector('hr');
+                hr.classList.remove('dark'); // Remove dark class from hr
+                const links = document.querySelectorAll('.btn-change a');
+                links.forEach(link => link.classList.remove('dark')); // Remove dark class from links
+                const checkboxes = document.querySelectorAll('.check-fullname, .check')
+                checkboxes.forEach(checkbox => checkbox.classList.remove('dark')); // Remove dark class from checkbox labels
+                // Remove dark class from text elements
+                document.querySelector('.text').classList.remove('dark');
+                document.querySelector('.privacy').classList.remove('dark');
+            }
+        }
+
+        // Apply theme when the page loads
+        window.onload = function() {
+            applyTheme(); // Apply the saved theme
+        };
+    </script>
+</body>
+</html>

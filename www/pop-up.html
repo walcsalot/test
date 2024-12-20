@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/pop-up.css" />
+    <title>GloveSign App</title>
+    <script>
+        function confirmSignOut() {
+            const confirmation = confirm("Are you sure you want to sign out?");
+            if (confirmation) {
+                // Redirect to the sign-out page or perform sign-out logic
+                window.location.href = "index.html";
+            }
+        }
+
+        // Function to apply the saved theme
+        function applyTheme() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark'); // Add dark class to body
+            }
+        }
+
+        // Call applyTheme when the page loads
+        window.onload = applyTheme;
+    </script>
+</head>
+<body>
+    <div class="logo"><img src="asset/Title Logo.png" alt="" /></div>
+    <hr />
+    <div class="text"><a href="dashboard.html">Dashboard</a></div>
+    <hr />
+    <div class="text"><a href="translationhistory.html">Translation History</a></div>
+    <hr />
+    <div class="text"><a href="securityprivacy.html">Security & Privacy</a></div>
+    <hr />
+    <div class="text"><a href="preferences.html">Preferences</a></div>
+    <hr />
+    <div class="text"><a href="javascript:void(0);" class="sign-out" onclick="confirmSignOut()">Sign Out</a></div>
+</body>
+</html>

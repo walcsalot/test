@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  font-family: "Montserrat", serif;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", serif;
+  background-color: #ffffff; /* Light background */
+  color: #000000; /* Dark text */
+}
+
+/* Light theme styles */
+table {
+  border-collapse: collapse;
+  margin-top: 45px;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Light border for light theme */
+  background-color: #ffffff; /* White background for table cells */
+}
+
+th {
+  background-color: #f0f0f0; /* Light background for header */
+}
+
+/* Dark theme styles */
+body.dark {
+  background-color: #15202b; /* Dim background color */
+  color: white; /* Light text for contrast */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f0f0f0; /* Light header */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.header.dark {
+  background-color: #1b2631; /* Darker header for dark theme */
+}
+
+hr {
+  border: 1px solid #000; /* Black horizontal line for light theme */
+  margin: 10px 0;
+}
+
+hr.dark {
+  border: 1px solid #ffffff; /* White horizontal line for dark theme */
+}
+
+.theme-text, .text {
+  font-size: 18px;
+  margin: 10px 20px;
+}
+
+.light-text, .dim-text, .glove-text, .change-text {
+  margin-left: 20px;
+  font-size: 16px;
+  cursor: pointer; /* Change cursor to pointer for clickable text */
+}
+
+.custom-select {
+  margin: 10px 20px;
+}
+
+.check-pitch, .check-tuner {
+  margin: 10px 20px;
+}
+
+.check-g {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.check-g input {
+  margin-right: 10px;
+}
+
+/* Dark mode table styles */
+table.dark {
+  background-color: #222; /* Darker background for table */
+}
+
+th.dark {
+  background-color: #333; /* Darker background for header */
+}
+
+td.dark {
+  background-color: #222; /* Darker background for table cells */
+}
